@@ -34,6 +34,20 @@ Abre em `http://localhost:5173`. No catálogo você encontra:
 
 `npm run build` gera uma versão estática em `dist/` (usa caminhos relativos, funciona em qualquer hospedagem). `npm run typecheck` confere os tipos. Requer Node 20.19 ou superior.
 
+### Ver o catálogo sem servidor (arquivo único)
+
+Para mostrar o catálogo a quem não vai instalar nada (design, produto, stakeholders), gere o catálogo inteiro em **um único arquivo HTML**:
+
+```bash
+npm run build:standalone
+```
+
+O resultado fica em `dist-standalone/catalog.html`. Abra com **duplo clique** no navegador: tudo funciona (botões, campos, Select, Dropdown, troca Light/Dark), sem `npm`, sem servidor e sem outros arquivos. Dá para mandar por e-mail ou chat. As fontes vêm do Google Fonts; sem internet o catálogo abre com fontes do sistema.
+
+Eu testei o arquivo servido por um servidor local (um único pedido, sem depender de outros arquivos), em Light, Dark e no tamanho de celular. Se algum navegador bloquear algo ao abrir direto do disco, sirva a pasta com `npx serve dist-standalone` e abra `catalog.html`.
+
+O arquivo é gerado a partir do código atual, então gere de novo quando os componentes mudarem. Ele não é versionado no Git (`dist-standalone/` está no `.gitignore`).
+
 ### O que já está em código
 
 | Componente | Arquivo | Origem no Figma | Usa Radix |
