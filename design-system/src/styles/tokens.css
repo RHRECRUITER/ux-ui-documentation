@@ -1,0 +1,130 @@
+/*
+ * RHLabs Design System: tokens de tema
+ * Fonte: coleção "Theme" (modos Light e Dark) do arquivo Figma RHLabs,
+ * já resolvida para hex. Para mudar uma cor, mude primeiro no Figma.
+ *
+ * Regra: telas e componentes usam SÓ estes tokens, nunca hex solto.
+ */
+
+:root {
+  /* Superfícies */
+  --background: #ffffff;
+  --foreground: #2d2d2d;
+  --foreground-secondary: #505050;
+  --card: #ffffff;
+  --card-foreground: #2d2d2d;
+  --popover: #ffffff;
+  --popover-foreground: #2d2d2d;
+  --muted: #f2f2f2;
+  --muted-foreground: #64748b;
+  --secondary: #f2f2f2;
+  --secondary-foreground: #2d2d2d;
+
+  /* Marca e ação */
+  --primary: #00644e;
+  --primary-foreground: #ffffff;
+  --primary-hover: #004d40;
+  --primary-pressed: #012f33;
+  --accent: #f3fffc;
+  --accent-foreground: #012f33;
+
+  /* Semânticas */
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --destructive-hover: #b91c1c;
+  --destructive-pressed: #991b1b;
+  --success: #00644e;
+  --success-foreground: #ffffff;
+  --warning: #d97706;
+  --warning-foreground: #111111;
+  --info: #346cc9;
+  --info-foreground: #ffffff;
+
+  /* Bordas, foco e desabilitado */
+  --border: #e1ebe9;
+  --input: #e1ebe9;
+  --ring: #00644e;
+  --ring-focus: rgb(0 100 78 / 0.5);
+  --ring-error: rgb(220 38 38 / 0.2);
+  --disabled: #e5e5e5;
+  --disabled-foreground: #737373;
+
+  /* Gráficos */
+  --chart-1: #059669;
+  --chart-2: #3a84ff;
+  --chart-3: #d97706;
+  --chart-4: #e84045;
+  --chart-5: #9ca3af;
+
+  /* Sidebar */
+  --sidebar: #fafafa;
+  --sidebar-foreground: #2d2d2d;
+  --sidebar-primary: #00644e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f3fffc;
+  --sidebar-accent-foreground: #012f33;
+  --sidebar-border: #e1ebe9;
+  --sidebar-ring: #00644e;
+
+  /* Accordion (valores lidos direto do componente no Figma) */
+  --accordion-bg: #a7f3d0;
+  --accordion-foreground: #2d2d2d;
+}
+
+.dark {
+  --background: #111111;
+  --foreground: #ffffff;
+  --foreground-secondary: #d9d9d9;
+  --card: #171717;
+  --card-foreground: #ffffff;
+  --popover: #1d1d1d;
+  --popover-foreground: #ffffff;
+  --muted: #262626;
+  --muted-foreground: #d9d9d9;
+  --secondary: #262626;
+  --secondary-foreground: #fafafa;
+
+  --primary: #059669;
+  --primary-foreground: #ffffff;
+  --primary-hover: #047857;
+  --primary-pressed: #065f46;
+  --accent: rgb(5 150 105 / 0.25);
+  --accent-foreground: #6ee7b7;
+
+  --destructive: #e84045;
+  --destructive-foreground: #ffffff;
+  --destructive-hover: #dc2626;
+  --destructive-pressed: #b91c1c;
+  --success: #059669;
+  --success-foreground: #ffffff;
+  --warning: #ca8a04;
+  --warning-foreground: #111111;
+  --info: #3a84ff;
+  --info-foreground: #ffffff;
+
+  --border: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.1);
+  --ring: #059669;
+  --ring-focus: rgb(5 150 105 / 0.5);
+  --ring-error: rgb(232 64 69 / 0.4);
+  --disabled: #262626;
+  --disabled-foreground: #737373;
+
+  --chart-1: #34d399;
+  --chart-2: #3a84ff;
+  --chart-3: #ca8a04;
+  --chart-4: #e84045;
+  --chart-5: #9ca3af;
+
+  --sidebar: #171717;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #059669;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgb(5 150 105 / 0.25);
+  --sidebar-accent-foreground: #6ee7b7;
+  --sidebar-border: rgb(255 255 255 / 0.1);
+  --sidebar-ring: #059669;
+
+  --accordion-bg: #059669;
+  --accordion-foreground: #ffffff;
+}

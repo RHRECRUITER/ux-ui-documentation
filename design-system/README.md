@@ -12,7 +12,100 @@
 
 ---
 
+## Código pronto: biblioteca e catálogo
+
+Esta pasta é um **projeto de verdade**, não só documentação: tem os componentes do núcleo escritos em **React + TypeScript + Tailwind v4** e um **catálogo interativo no estilo Storybook** para ver cada um funcionando, copiar o código e conferir as props.
+
+### Rodar o catálogo
+
+```bash
+cd design-system
+npm install
+npm run dev
+```
+
+Abre em `http://localhost:5173`. No catálogo você encontra:
+
+- **Demos ao vivo** de cada componente (passe o mouse, use Tab, digite nos campos).
+- **Troca Light / Dark** no topo, com os valores reais de cada token.
+- **Tabela de props** com o nome da propriedade equivalente no Figma.
+- **Código para copiar**, pronto para colar.
+- Páginas de **Cores, Tipografia, Raio e espaçamento**.
+
+`npm run build` gera uma versão estática em `dist/` (usa caminhos relativos, funciona em qualquer hospedagem). `npm run typecheck` confere os tipos. Requer Node 20.19 ou superior.
+
+### O que já está em código
+
+| Componente | Arquivo | Origem no Figma | Usa Radix |
+|---|---|---|---|
+| Button, Icon button | `src/components/ui/button.tsx` | `18:81254`, `18:82644` | não |
+| Input | `src/components/ui/input.tsx` | `18:77197` | não |
+| Textarea | `src/components/ui/textarea.tsx` | `26:131` | não |
+| Select | `src/components/ui/select.tsx` | `29:131` | sim |
+| Checkbox | `src/components/ui/checkbox.tsx` | `11:350` | sim |
+| Radio | `src/components/ui/radio-group.tsx` | `1:11475` | sim |
+| Badge | `src/components/ui/badge.tsx` | `11:403` | não |
+| Status | `src/components/ui/status.tsx` | `181:88` | não |
+| Avatar | `src/components/ui/avatar.tsx` | `1:11694` | não |
+| Alert | `src/components/ui/alert.tsx` | `241:7411` | não |
+| Accordion | `src/components/ui/accordion.tsx` | `108:21534` | sim |
+| Dropdown | `src/components/ui/dropdown-menu.tsx` | `30:3160`, `30:3251` | sim |
+
+O [Radix UI](https://www.radix-ui.com/) cuida de teclado, foco e ARIA nos componentes que abrem, fecham ou têm seleção (Select, Dropdown, Accordion, Checkbox, Radio). Os estilos continuam sendo os tokens do Figma.
+
+**Ainda não estão em código:** Tag input, Choice chip, Radio card, Segmented control, Stepper, Rating, Nav link, os componentes do App e os de Layout (sidebar, headers, footer). Eles seguem o mesmo padrão: use as fichas deste README e o código dos componentes acima como modelo.
+
+### Estrutura
+
+```
+design-system/
+├── index.html
+├── package.json
+├── vite.config.ts
+└── src/
+    ├── styles/
+    │   ├── tokens.css        ← tokens do tema (Light e Dark), vêm do Figma
+    │   └── index.css         ← liga os tokens ao Tailwind (@theme) e define raios e fontes
+    ├── lib/cn.ts             ← junta classes e resolve conflitos do Tailwind
+    ├── components/ui/        ← os componentes (copiar para o projeto)
+    └── catalog/              ← o catálogo (não precisa ir para o projeto)
+```
+
+### Levar para o projeto de vocês
+
+O padrão é **copy-paste**, igual ao shadcn/ui: os componentes viram código de vocês, sem pacote para atualizar.
+
+1. Copie `src/styles/tokens.css` e o bloco `@theme inline` de `src/styles/index.css` para o CSS global.
+2. Copie `src/lib/cn.ts` e a pasta `src/components/ui/`.
+3. Instale as dependências:
+
+   ```bash
+   npm i class-variance-authority clsx tailwind-merge lucide-react \
+     @radix-ui/react-accordion @radix-ui/react-checkbox @radix-ui/react-dropdown-menu \
+     @radix-ui/react-radio-group @radix-ui/react-select
+   ```
+
+4. Carregue as fontes Manrope e Plus Jakarta Sans (veja o [Quickstart](#2-comece-por-aqui-quickstart)).
+5. Se o projeto usa alias, ajuste os imports relativos (`../../lib/cn`) para o alias de vocês.
+
+```tsx
+import { Button, Input, Select, Checkbox, Alert } from "@/components/ui";
+
+<Button variant="primary" size="md">Salvar</Button>
+```
+
+### Como foi validado
+
+- `tsc --noEmit` e `vite build` passam sem erro.
+- Conferido no navegador, em Light e Dark, contra o Figma: Button, Input, Select, Dropdown, Status, Accordion, Avatar e as cores.
+- **Não há testes automatizados** nem teste com leitor de tela. Recomendado antes de ir para produção.
+- Medidas e tokens foram lidos do Figma para todos os componentes da tabela acima. Alguns valores o Figma não define e foram **inferidos**: tamanho dos ícones do Icon button, opacidade do Radio desabilitado (50%, igual ao Checkbox), cores de Warning e Info do Status em Dark, aparência do placeholder do Avatar e o espaço entre itens do Accordion (8px). Vale o design confirmar.
+
+---
+
 ## Sumário
+
+**Novo:** [Código pronto: biblioteca e catálogo](#código-pronto-biblioteca-e-catálogo)
 
 1. [Visão geral](#1-visão-geral)
 2. [Comece por aqui (quickstart)](#2-comece-por-aqui-quickstart)
@@ -47,7 +140,7 @@ O RHLabs Design System dá base visual e de interface ao produto de gestão de D
 
 O Figma declara que o sistema de cores segue **shadcn/ui com Tailwind**. Os exemplos deste README usam **React + TypeScript + Tailwind CSS v4 + shadcn/ui (cva)**. Se o projeto usar outra stack, as variáveis CSS da [seção 2](#2-comece-por-aqui-quickstart) continuam valendo, e só muda a camada de componentes.
 
-> Os trechos de código deste README são **propostas de implementação** derivadas do Figma. Eles ainda não existem como biblioteca publicada. Tratem como ponto de partida.
+> Os componentes do núcleo **já existem em código** nesta pasta (veja [Código pronto](#código-pronto-biblioteca-e-catálogo)). Os trechos de código das fichas abaixo são versões resumidas. Para os componentes que ainda não foram codificados, tratem-nos como **propostas de implementação** derivadas do Figma.
 
 ---
 
@@ -940,7 +1033,7 @@ Menu suspenso para escolher uma ação ou opção.
 
 [Abrir no Figma](https://www.figma.com/design/THYVm23rQLtJB4rxUKVMUl/RHLabs?node-id=11-350) · 12 variantes
 
-Estilo shadcn/ui: **16px, raio 4px**.
+Estilo shadcn/ui: caixa de **18px** (a descrição do componente no Figma diz 16px, mas a caixa desenhada tem 18px; o código segue 18px), **raio 4px**.
 
 <p align="center"><img src="docs/img/checkbox.png" alt="Checkbox: unchecked, checked e indeterminate, em quatro estados" width="700"></p>
 
@@ -1010,7 +1103,7 @@ Indicador do estado de um registro (aprovado, pendente, erro…). **Combina cor,
 | Figma | Valores | Sugestão de prop |
 |---|---|---|
 | `Type` | Success · Warning · Error · Info · Neutral | `type` |
-| `Style` | Tag (22px de altura) · Pill (27px) · Dot (27px) | `style` |
+| `Style` | Tag (22px de altura) · Pill (27px) · Dot (27px) | `appearance` (não use `style`: colide com a prop do React) |
 | `Label` | texto | `children` |
 
 Mapeamento de cor **sugerido** (confirme as cores exatas no Figma): Success → `success` · Warning → `warning` · Error → `destructive` · Info → `info` · Neutral → `muted`.
@@ -1279,6 +1372,10 @@ Inconsistências encontradas ao ler o arquivo. Nenhuma impede de implementar, ma
 | 10 | **Status antigo** | `Status (antigo)` convive com o `Status` v2. | Implemente só o v2. | Design |
 | 11 | **Raio do Icon button** | O quadrado usa 6px, valor que não está na escala atual. | Use `rounded-[6px]` ou aguarde alinhamento. | Design |
 | 12 | **Nome do produto** | Aparece como RHLabs, RHDPeople e RhDPeople. | Use o nome definido pelo produto/marketing nos textos de interface. | Produto |
+| 13 | **Status e Alert fora dos tokens** | As cores de `Status` e `Alert` são hex soltos e escalas (`extra/*`, `red/700`…), não tokens do Theme. | O código fixa os valores lidos do Figma. Se o Theme ganhar tokens para isso, trocar. | Design |
+| 14 | **Texto do Status muito pequeno** | Tag tem 9px e Pill/Dot têm 10px, abaixo do mínimo recomendado de leitura. | Implementado como no Figma. Avaliar aumento. | Design |
+| 15 | **Accordion com cor própria** | Em Light usa `brand/green-200` sólido (`#A7F3D0`) e em Dark usa `primary`, sem token semântico. | Implementado com `--accordion-bg` e `--accordion-foreground` em `tokens.css`. | Design |
+| 16 | **Raios e medidas soltos** | Textarea, Dropdown menu e Badge usam `radius-legacy/*`; Checkbox tem descrição de 16px e caixa de 18px; Icon button quadrado usa 6px. | O código segue as medidas desenhadas (ver ponto 1). | Design |
 
 ---
 
