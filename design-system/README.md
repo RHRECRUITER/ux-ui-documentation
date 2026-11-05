@@ -14,13 +14,35 @@
 
 ## Código pronto: biblioteca e catálogo
 
-Esta pasta é um **projeto de verdade**, não só documentação: tem os componentes do núcleo escritos em **React + TypeScript + Tailwind v4** e um **catálogo interativo no estilo Storybook** para ver cada um funcionando, copiar o código e conferir as props.
+Esta pasta é um **projeto de verdade**, não só documentação: tem os componentes do núcleo escritos em **React + TypeScript + Tailwind v4** o **Storybook do RHLabs** para ver cada um funcionando (mudando as props na hora) e conferir a documentação, além de um catálogo mais simples com demos e código para copiar.
 
-### Rodar o catálogo
+### Storybook (para o time de desenvolvimento)
+
+O jeito principal de explorar os componentes é o **Storybook do RHLabs**: a lista de componentes fica à esquerda, cada variação é uma "story" e o painel **Controls** deixa mudar as props na hora, vendo o resultado e as animações (por exemplo, o Accordion abrindo e fechando).
 
 ```bash
 cd design-system
 npm install
+npm run storybook
+```
+
+Abre em `http://localhost:6006`, **só no computador de quem rodou o comando**. Nada é publicado na internet.
+
+O que tem lá:
+
+- **Stories** de cada componente: Playground, variantes, tamanhos, estados e exemplos interativos.
+- **Controls**: muda props (variant, size, error, loading…) e o componente reage.
+- **Docs**: página gerada com a descrição, o link para o componente no Figma, a tabela de props e todas as stories.
+- **Tema Light / Dark** na barra de ferramentas do topo (ícone de círculo).
+- **Accessibility**: checagem automática de acessibilidade de cada story.
+
+`npm run build-storybook` gera a versão estática em `storybook-static/` (não é versionada no Git). As stories ficam em `src/stories/`, separadas dos componentes em `src/components/ui/`, para não irem junto na hora de copiar.
+
+### Rodar o catálogo
+
+Além do Storybook existe o **catálogo** do projeto (mais simples, com demos, props e código para copiar):
+
+```bash
 npm run dev
 ```
 
@@ -73,6 +95,7 @@ O [Radix UI](https://www.radix-ui.com/) cuida de teclado, foco e ARIA nos compon
 
 ```
 design-system/
+├── .storybook/               ← configuração do Storybook (tema Light/Dark, fontes, addons)
 ├── index.html
 ├── package.json
 ├── vite.config.ts
@@ -82,6 +105,7 @@ design-system/
     │   └── index.css         ← liga os tokens ao Tailwind (@theme) e define raios e fontes
     ├── lib/cn.ts             ← junta classes e resolve conflitos do Tailwind
     ├── components/ui/        ← os componentes (copiar para o projeto)
+    ├── stories/              ← as stories do Storybook (não copiar para o projeto)
     └── catalog/              ← o catálogo (não precisa ir para o projeto)
 ```
 
@@ -111,6 +135,8 @@ import { Button, Input, Select, Checkbox, Alert } from "@/components/ui";
 ### Como foi validado
 
 - `tsc --noEmit` e `vite build` passam sem erro.
+- O Storybook sobe (`npm run storybook`) e o build estático (`npm run build-storybook`) passa numa cópia limpa. Conferi no navegador: Controls mudando props, tema Dark, a página Docs e o Accordion com "permite vários".
+- `npm audit` aponta 4 avisos moderados em dependências internas do próprio Storybook (`glob` e `minimatch`, usadas só em desenvolvimento, não vão para o produto). A correção automática derrubaria o Storybook para a versão 8, então não foi aplicada. Vale reavaliar quando sair uma versão nova.
 - Conferido no navegador, em Light e Dark, contra o Figma: Button, Input, Select, Dropdown, Status, Accordion, Avatar e as cores.
 - **Não há testes automatizados** nem teste com leitor de tela. Recomendado antes de ir para produção.
 - Medidas e tokens foram lidos do Figma para todos os componentes da tabela acima. Alguns valores o Figma não define e foram **inferidos**: tamanho dos ícones do Icon button, opacidade do Radio desabilitado (50%, igual ao Checkbox), cores de Warning e Info do Status em Dark, aparência do placeholder do Avatar e o espaço entre itens do Accordion (8px). Vale o design confirmar.
