@@ -5,6 +5,9 @@ import { ThemeContext, type ThemeMode } from "./doc";
 import { allPages, groups } from "./registry";
 
 function readTheme(): ThemeMode {
+  // Se quem abriu a página (visualizador) já definiu o tema, respeita.
+  const host = document.documentElement.dataset.theme;
+  if (host === "light" || host === "dark") return host;
   try {
     const saved = localStorage.getItem("rhlabs-ds-theme");
     if (saved === "light" || saved === "dark") return saved;
@@ -34,6 +37,16 @@ export function App() {
       /* ignora */
     }
   }, [theme]);
+
+  // Acompanha mudanças de tema feitas por fora (data-theme no <html>).
+  React.useEffect(() => {
+    const obs = new MutationObserver(() => {
+      const t = document.documentElement.dataset.theme;
+      if (t === "light" || t === "dark") setTheme(t);
+    });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => obs.disconnect();
+  }, []);
 
   React.useEffect(() => {
     const onHash = () => {
@@ -76,7 +89,7 @@ export function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div className="flex h-dvh flex-col bg-background text-foreground">
+      <div className="flex h-full flex-col bg-background text-foreground">
         <header className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-card px-4">
           <div className="flex items-center gap-3">
             <button
@@ -90,7 +103,7 @@ export function App() {
             </button>
             <a href="#inicio" className="flex items-center gap-2 font-heading text-base font-bold">
               <span className="grid size-7 place-items-center rounded-xs bg-primary text-sm text-primary-foreground">R</span>
-              RHLabs <span className="font-medium text-foreground-secondary">Design System</span>
+              RHLabs <span className="hidden font-medium text-foreground-secondary sm:inline">Design System</span>
             </a>
           </div>
           <div className="flex items-center gap-3">
@@ -118,7 +131,7 @@ export function App() {
             {nav}
           </aside>
           <main ref={mainRef} className="min-w-0 flex-1 overflow-y-auto">
-            <div className="mx-auto max-w-5xl px-6 py-10 lg:px-10">
+            <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10 lg:px-10">
               <PageComponent />
             </div>
           </main>

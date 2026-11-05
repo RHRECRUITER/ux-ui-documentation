@@ -11,6 +11,13 @@ const statusTypes = [
 ] as const;
 const avatarSizes: AvatarSize[] = ["2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl"];
 
+// Foto de exemplo embutida (sem depender de rede).
+const demoPhoto =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#a7f3d0"/><circle cx="32" cy="26" r="12" fill="#00644e"/><path d="M8 64c2-16 14-24 24-24s22 8 24 24z" fill="#00644e"/></svg>',
+  );
+
 export function BadgePage() {
   return (
     <Page
@@ -115,13 +122,13 @@ export function AvatarPage() {
       >
         <Avatar size="6xl" name="Maria da Silva" />
         <Avatar size="6xl" name="Maria da Silva" shape="squircle" />
-        <Avatar size="6xl" src="https://example.invalid/foto.jpg" name="João Pereira" />
+        <Avatar size="6xl" src={demoPhoto} name="João Pereira" />
         <Avatar size="6xl" placeholder />
       </Example>
 
       <Demo>
         <p className="text-sm text-foreground-secondary">
-          O terceiro avatar tenta carregar uma foto inexistente e cai para as iniciais, que é o comportamento esperado.
+          O terceiro avatar usa uma foto de exemplo. Se a foto não existir ou falhar ao carregar, aparecem as iniciais do nome.
         </p>
       </Demo>
 

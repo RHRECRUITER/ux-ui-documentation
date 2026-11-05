@@ -7,6 +7,8 @@
  */
 
 :root {
+  color-scheme: light;
+
   /* Superfícies */
   --background: #ffffff;
   --foreground: #2d2d2d;
@@ -72,6 +74,8 @@
 }
 
 .dark {
+  color-scheme: dark;
+
   --background: #111111;
   --foreground: #ffffff;
   --foreground-secondary: #d9d9d9;
