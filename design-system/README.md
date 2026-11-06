@@ -28,6 +28,36 @@ npm run storybook
 
 Abre em `http://localhost:6006`, **só no computador de quem rodou o comando**. Nada é publicado na internet.
 
+#### Veja em ação
+
+Os GIFs abaixo são capturas **reais do nosso Storybook**, mostradas passo a passo (cada quadro é um estado do componente). No GitHub não dá para clicar neles: para mexer de verdade, rode `npm run storybook`.
+
+**Accordion**, com vários itens abertos ao mesmo tempo (story "Permite vários"):
+
+<img src="docs/gifs/accordion.gif" alt="Accordion: abre a segunda e a terceira pergunta, depois fecha a primeira" width="616">
+
+**Button** em loading: ao clicar, mostra o spinner e ignora novos cliques (story "Loading interativo"):
+
+<img src="docs/gifs/button-loading.gif" alt="Button: o texto Salvar alterações vira Salvando… com um spinner" width="206">
+
+**Dropdown**: abre com um clique, destaca o item sob o mouse e marca itens com check (story "Menu de conta"):
+
+<img src="docs/gifs/dropdown.gif" alt="Dropdown: menu de conta abrindo, item em destaque e dois itens marcados" width="256">
+
+**Select**: abre a lista, mostra a opção desabilitada esmaecida e exibe o valor escolhido (story "Controlado"):
+
+<img src="docs/gifs/select.gif" alt="Select: campo fechado, lista aberta e opção escolhida" width="382">
+
+**Input** com validação ao vivo: erro enquanto o e-mail está incompleto e sucesso quando fica válido (story "Validação ao vivo"):
+
+<img src="docs/gifs/input-validacao.gif" alt="Input: e-mail inválido com erro vermelho, depois e-mail válido com sucesso verde" width="383">
+
+**Tema Light e Dark**: os mesmos componentes trocando de tema pela barra de ferramentas (story "Variants" do Button):
+
+<img src="docs/gifs/tema-light-dark.gif" alt="Button: variantes primary, secondary, tertiary e destructive em Light e depois em Dark" width="487">
+
+> Os GIFs são fotos do momento em que foram gerados. Se um componente mudar, eles podem ficar desatualizados. O Storybook sempre reflete o código atual.
+
 O que tem lá:
 
 - **Stories** de cada componente: Playground, variantes, tamanhos, estados e exemplos interativos.
